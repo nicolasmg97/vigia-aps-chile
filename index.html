@@ -6,7 +6,7 @@
 <title>Vigía APS</title>
 </head>
 <body>
-<div role="status" style="padding:12px 16px;background:#fff3cd;color:#533f03;border-bottom:1px solid #d9c57d;font:15px system-ui">Archivo histórico recuperado: edición del 30 de agosto de 2026. No representa alertas vigentes ni una revisión clínica actual. Migración en curso. Consulta las fuentes oficiales antes de aplicar recomendaciones.</div>
+<div role="status" style="padding:12px 16px;background:#e8f4ed;color:#174b30;font:15px system-ui">Edición de recuperación · revisión parcial al 21 de noviembre de 2026. Archivo histórico incompleto. Vigía APS es un recurso independiente; verifica las fuentes originales y protocolos vigentes.</div>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -499,103 +499,133 @@
   // parte del historial).
   // ============================================================
   var EDITION = {
-    number: 1,
-    rangeLabel: "24–30 de agosto de 2026",
-    publishedISO: "2026-08-30",
-    nextUpdateLabel: "lunes 7 de septiembre",
-    intro: "Siete hallazgos verificados de la semana, priorizados por lo que cambia en la práctica de un CESFAM — no por orden de aparición en prensa. Marca los que llevarás a tu reunión de equipo y expórtalos al final."
-  };
-
+  "number": 1,
+  "rangeLabel": "Actualización de recuperación · 10–21 de noviembre de 2026",
+  "publishedISO": "2026-11-21",
+  "nextUpdateLabel": "Revisión diaria programada",
+  "intro": "Nueva edición de recuperación, con revisión parcial de fuentes al 21 de noviembre. Cuatro señales recientes de farmacovigilancia, un antecedente epidemiológico y un estudio de diseño sin resultados de eficacia. No se completó una búsqueda clínica exhaustiva ni se verificaron todas las fuentes MAIS, ECICEP o SSMN. No se identificó en esta búsqueda limitada evidencia suficiente para cambiar la práctica. La numeración histórica de septiembre a noviembre aún está por recuperar."
+};
   var ITEMS = [
-    {
-      id: "hanta-2026-07",
-      severity: "critico",
-      category: "vigilancia",
-      title: "Alerta sanitaria por hantavirus se extiende a 13 regiones, con letalidad al alza",
-      date: "2026-07-28",
-      region: "Atacama a Magallanes",
-      summary: "El Minsal decretó alerta sanitaria por hantavirus en 13 regiones (Atacama, Coquimbo, Valparaíso, Metropolitana, O'Higgins, Maule, Ñuble, Biobío, La Araucanía, Los Lagos, Los Ríos, Aysén y Magallanes), vigente hasta el 31 de julio de 2027. Antes del decreto se registraban 46 contagios y 18 fallecidos (letalidad 39%), frente a 44 casos y 8 muertes (18%) en todo 2025.",
-      meaning: "La letalidad más que se duplicó respecto del año pasado. Ante cuadro febril con antecedente de exposición rural o roedores, baja el umbral de sospecha en box de urgencia/SAPU y prioriza la derivación precoz por sobre el manejo ambulatorio expectante.",
-      tags: ["Hantavirus", "Zoonosis"],
-      source: { name: "24 Horas / La Tercera", url: "https://www.24horas.cl/actualidad/nacional/minsal-multiamenaza-sanitaria-13-regiones-alerta-hantavirus" }
-    },
-    {
-      id: "resp-peak-s33",
-      severity: "alerta",
-      category: "vigilancia",
-      title: "Circulación de virus respiratorios llega al peak de la temporada",
-      date: "2026-08-27",
-      region: "Nacional",
-      summary: "En la semana epidemiológica 33 (16 al 22 de agosto) la positividad de muestras respiratorias llegó a 56,1%, la más alta de la temporada. Rinovirus lidera con 32,3%, seguido de VRS (26,6%) e influenza B (14,3%). La ocupación de camas críticas pediátricas por causa respiratoria alcanzó ~50%.",
-      meaning: "Con la demanda pediátrica en su punto más alto, refuerza el triage respiratorio en box de niños, prioriza el rescate activo de rezagados de vacunación y anticipa consulta espontánea sobre lo habitual para las próximas 1–2 semanas.",
-      tags: ["VRS", "Rinovirus", "Pediatría"],
-      source: { name: "BioBioChile (Minsal)", url: "https://www.biobiochile.cl/noticias/nacional/chile/2026/08/27/hospitalizaciones-pediatricas-por-causas-respiratorias-alcanzan-peak-de-la-temporada-segun-minsal.shtml" }
-    },
-    {
-      id: "frontal-norte-ago",
-      severity: "alerta",
-      category: "alerta-sanitaria",
-      title: "Alerta sanitaria por sistema frontal se amplía a Tarapacá y Antofagasta",
-      date: "2026-08-20",
-      region: "Tarapacá, Antofagasta, Atacama, Coquimbo",
-      summary: "El Minsal sumó a Tarapacá y Antofagasta a la alerta sanitaria vigente en Atacama y Coquimbo por el sistema frontal, debido a zonas aisladas, cortes de conectividad y daños en infraestructura que afectan la derivación y el acceso de la población a la atención de salud.",
-      meaning: "Si tu CESFAM está en una de estas cuatro regiones, activa el plan de contingencia para continuidad de controles crónicos y define de antemano cómo se trazará a los pacientes que no puedan asistir mientras dure el aislamiento.",
-      tags: ["Emergencia", "Continuidad de atención"],
-      source: { name: "Radio Universidad de Chile", url: "https://radio.uchile.cl/2026/08/20/ante-afectaciones-del-sistema-frontal-minsal-amplia-alerta-sanitaria-a-tarapaca-y-antofagasta/" }
-    },
-    {
-      id: "isp-ketorolaco",
-      severity: "alerta",
-      category: "farmacovigilancia",
-      title: "ISP ordena retiro de lote de ketorolaco inyectable por fragmentos de vidrio",
-      date: "2026-08-20",
-      region: "Nacional",
-      summary: "El ISP instruyó el retiro del lote 11222402 de ketorolaco trometamina inyectable 30 mg/1 mL (cajas de 100 ampollas, vencimiento abril 2027, fabricante Indus Pharma) por hallazgo de fragmentos de vidrio dentro del producto. El riesgo descrito incluye flebitis, embolia, sepsis y daño de órganos.",
-      meaning: "Revisa hoy la bodega y sala de procedimientos de tu CESFAM/SAR: si el lote coincide, retíralo de circulación de inmediato y notifica según el procedimiento local de farmacovigilancia.",
-      tags: ["ISP", "Retiro de lote"],
-      source: { name: "Diario El Día", url: "https://www.diarioeldia.cl/noticias/2026/08/20/148309-alerta-farmaceutica-por-vidrio-en-inyectable-para-el-dolor-isp-instruye-retiro" }
-    },
-    {
-      id: "isp-amlodipino",
-      severity: "atencion",
-      category: "farmacovigilancia",
-      title: "ISP retira lote de amlodipino usado para hipertensión",
-      date: "2026-07-23",
-      region: "Nacional",
-      summary: "El ISP ordenó el retiro de un lote específico de amlodipino, fármaco de uso extendido en el control de hipertensión en atención primaria.",
-      meaning: "Cruza el lote retirado con el stock de crónicos cardiovasculares de tu farmacia CESFAM antes de la próxima entrega de tratamiento mensual.",
-      tags: ["ISP", "Cardiovascular"],
-      source: { name: "El Mostrador", url: "https://www.elmostrador.cl/datos-utiles/2026/07/23/alerta-farmaceutica-por-amlodipino-isp-ordena-retirar-este-lote-de-remedio-de-hipertension/" }
-    },
-    {
-      id: "influenza-2026-cobertura",
-      severity: "rutina",
-      category: "recordatorio",
-      title: "Campaña de influenza 2026 se mantiene abierta hasta llegar al 85% de cobertura",
-      date: "2026-08-24",
-      region: "Nacional",
-      summary: "La campaña de vacunación contra influenza, iniciada el 1 de marzo, continúa activa mientras no se alcance una cobertura igual o superior al 85% en sus grupos objetivo: personal de salud, personas de 60 años o más, enfermos crónicos de 11 a 59 años, embarazadas, niños desde 6 meses hasta 5° básico, trabajadores de educación y trabajadores avícolas, ganaderos y de criaderos de cerdos.",
-      meaning: "Con la circulación respiratoria en su peak (ver hallazgo de más arriba), cada rezagado vacunado esta semana pesa más que en marzo. Revisa el listado nominal de tu sector y prioriza el rescate telefónico de los grupos de mayor riesgo.",
-      tags: ["Influenza", "Cobertura 85%"],
-      source: { name: "Ministerio de Salud", url: "https://www.minsal.cl/campana-vacunacion-2026-contra-influenza/" }
-    },
-    {
-      id: "comges-2026-orientaciones",
-      severity: "rutina",
-      category: "normativa-evidencia",
-      title: "DIPRECE mantiene vigentes las Orientaciones Técnicas COMGES 2026",
-      date: "2026-03-01",
-      region: "Nacional",
-      summary: "Las Orientaciones Técnicas COMGES 2026 (versión 1.1) y el repositorio de guías clínicas AUGE/GES de DIPRECE siguen siendo la referencia vigente para las 90 patologías con garantías explícitas en salud.",
-      meaning: "Antes de una auditoría o una capacitación interna, confirma que los protocolos de derivación GES de tu CESFAM citen esta versión y no una guía descontinuada.",
-      tags: ["GES", "DIPRECE"],
-      source: { name: "DIPRECE — Minsal", url: "https://diprece.minsal.cl/le-informamos/auge/acceso-guias-clinicas/guias-clinicas-auge/" }
+  {
+    "id": "isp-glp1-naion-2026-11",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Agonistas GLP-1: nueva advertencia de seguridad ocular",
+    "date": "2026-11-17",
+    "region": "Chile",
+    "summary": "El ISP registró una nota de farmacovigilancia el 17 de noviembre y anunció el 18 de noviembre la actualización de información de seguridad por una posible neuropatía óptica isquémica anterior no arterítica. La frecuencia se considera muy baja; la pérdida visual súbita puede ser permanente.",
+    "meaning": "Revisar la consejería en personas que reciben estos fármacos. Ante pérdida visual súbita, procurar evaluación urgente y notificar sospechas de reacción adversa. La alerta no equivale a una indicación de suspender indiscriminadamente todos los tratamientos; comprobar la ficha de cada producto y evaluar individualmente.",
+    "tags": [
+      "Diabetes",
+      "Obesidad",
+      "Seguridad"
+    ],
+    "source": {
+      "name": "ISP · comunicado oficial",
+      "url": "https://ispch.cl/noticia/isp-publica-nota-de-farmacovigilancia-sobre-agonistas-del-receptor-de-glp-1-por-riesgo-de-neuropatia-optica-isquemica-anterior-no-arteritica/"
     }
-  ];
-
+  },
+  {
+    "id": "isp-36-26",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Retiro de mercado 36/26: ondansetrón inyectable",
+    "date": "2026-11-13",
+    "region": "Chile",
+    "summary": "El registro oficial identifica una alerta de retiro para ondansetrón 8 mg/4 mL de Vitafarma S.A. No se verificaron en esta revisión los lotes ni la causa del retiro.",
+    "meaning": "Solicitar a farmacia revisar la alerta completa y contrastar fabricante, presentación y lotes en bodega y carros de urgencia. No extender el retiro a otras presentaciones sin confirmación.",
+    "tags": [
+      "Farmacia",
+      "SAPU",
+      "Urgencia"
+    ],
+    "source": {
+      "name": "ISP · registro de alertas 36/26",
+      "url": "https://www.ispch.gob.cl/categorias-alertas/anamed/?buscar=&tipo_alerta=&tipo_producto=farmaceutico"
+    }
+  },
+  {
+    "id": "isp-35-26",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Retiro de mercado 35/26: lorazepam inyectable",
+    "date": "2026-11-13",
+    "region": "Chile",
+    "summary": "El ISP incluye una alerta para lorazepam solución inyectable 4 mg/2 mL de Laboratorio Sanderson SpA. No se verificaron los lotes ni la causa.",
+    "meaning": "Confirmar alcance con farmacia, asegurar trazabilidad de existencias y continuidad de las alternativas autorizadas en caso de afectación del stock.",
+    "tags": [
+      "Farmacia",
+      "Urgencia"
+    ],
+    "source": {
+      "name": "ISP · registro de alertas 35/26",
+      "url": "https://www.ispch.gob.cl/categorias-alertas/anamed/?buscar=&tipo_alerta=&tipo_producto=farmaceutico"
+    }
+  },
+  {
+    "id": "isp-34-26",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Retiro de mercado 34/26: cefazolina inyectable",
+    "date": "2026-11-10",
+    "region": "Chile",
+    "summary": "El listado del ISP registra un retiro de cefazolina 1 g polvo para solución inyectable de Difem Laboratorios S.A. Los lotes y el motivo no fueron comprobados en esta revisión.",
+    "meaning": "Consultar la alerta original antes de decidir inmovilización de lotes y coordinar con farmacia y referentes de antimicrobianos según disponibilidad local.",
+    "tags": [
+      "Antibióticos",
+      "Farmacia"
+    ],
+    "source": {
+      "name": "ISP · registro de alertas 34/26",
+      "url": "https://www.ispch.gob.cl/categorias-alertas/anamed/?buscar=&tipo_alerta=&tipo_producto=farmaceutico"
+    }
+  },
+  {
+    "id": "mpox-2026-10-15",
+    "severity": "atencion",
+    "category": "vigilancia",
+    "title": "Mpox clado Ib: antecedente de transmisión local en Chile",
+    "date": "2026-10-15",
+    "region": "Chile",
+    "summary": "Salud Responde conserva en su listado oficial el oficio CP 25043/2026 sobre confirmación de casos con transmisión local. Es un antecedente de octubre incorporado a esta revisión, no una nueva alerta de noviembre.",
+    "meaning": "Revisar con epidemiología local el protocolo actualizado de sospecha, notificación y derivación. Esta revisión no confirma cifras actuales de casos ni reemplaza las instrucciones del oficio.",
+    "tags": [
+      "Mpox",
+      "Vigilancia"
+    ],
+    "source": {
+      "name": "MINSAL · Salud Responde",
+      "url": "https://saludresponde.minsal.cl/alertas-de-salud/"
+    }
+  },
+  {
+    "id": "heart2heart-2026-11",
+    "severity": "rutina",
+    "category": "normativa-evidencia",
+    "title": "Observar: atención en equipo y monitorización domiciliaria de presión arterial",
+    "date": "2026-11-01",
+    "region": "Internacional · Estados Unidos",
+    "summary": "La edición de noviembre de Contemporary Clinical Trials describe el diseño y datos basales del ensayo Heart-2-Heart BP Control Partners, desarrollado en 19 centros de atención primaria de Carolina del Norte. Compara monitorización domiciliaria conectada y atención farmacéutica en equipo con atención habitual reforzada. La fecha exacta del día no se verificó; se usa el primer día del mes para ordenar la ficha.",
+    "meaning": "Veredicto: vigilar, no cambiar. El diseño puede inspirar evaluaciones ECICEP de seguimiento y coordinación, pero no demuestra beneficio clínico ni transferibilidad al CESFAM. No hay resultados de eficacia, NNT ni estimación de daños evaluados en esta revisión.",
+    "tags": [
+      "HTA",
+      "ECICEP",
+      "Internacional",
+      "Diseño de ensayo"
+    ],
+    "source": {
+      "name": "Contemporary Clinical Trials · artículo original",
+      "url": "https://doi.org/10.1016/j.cct.2026.108469"
+    }
+  }
+];
   var ARCHIVE = [
-    // Cada edición pasada agrega aquí: { number, rangeLabel, count }
-  ];
+  {
+    "number": 1,
+    "rangeLabel": "24–30 de agosto de 2026",
+    "count": 7
+  }
+];
 
   // ============================================================
   // Config estática (no cambia semana a semana)
@@ -635,7 +665,7 @@
   }
 
   // ---------- render: header ----------
-  document.getElementById("editionLabel").textContent = "Edición " + String(EDITION.number).padStart(2,"0");
+  document.getElementById("editionLabel").textContent = "Edición de recuperación";
   document.getElementById("editionRange").textContent = EDITION.rangeLabel;
   document.getElementById("nextUpdate").textContent = EDITION.nextUpdateLabel;
   document.getElementById("introText").textContent = EDITION.intro;
@@ -756,7 +786,7 @@
 
   function copySummary(){
     var sel = selectedItems();
-    var lines = ["Vigía APS — " + "Edición " + String(EDITION.number).padStart(2,"0") + " (" + EDITION.rangeLabel + ")", ""];
+    var lines = ["Vigía APS — " + "Edición de recuperación" + " (" + EDITION.rangeLabel + ")", ""];
     sel.forEach(function(it){
       lines.push("• [" + SEVERITY[it.severity].label.toUpperCase() + "] " + it.title);
       lines.push("  " + it.meaning);
@@ -806,7 +836,7 @@
     archiveWrap.innerHTML = '<div class="archive-empty">Esta es la primera edición de Vigía APS. El archivo se irá construyendo automáticamente cada semana.</div>';
   } else {
     archiveWrap.innerHTML = '<ul class="archive-list">' + ARCHIVE.map(function(ed){
-      return '<li><span>Edición ' + String(ed.number).padStart(2,"0") + ' · ' + ed.rangeLabel + '</span><span class="footer-meta">' + ed.count + ' hallazgos</span></li>';
+      return '<li><span><a href="ediciones/2026-08-30.html">Archivo histórico · ' + ed.rangeLabel + '</a></span><span class="footer-meta">' + ed.count + ' hallazgos</span></li>';
     }).join("") + '</ul>';
   }
 
