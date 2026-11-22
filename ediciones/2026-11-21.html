@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vigía APS</title>
+</head>
+<body>
+<div role="status" style="padding:12px 16px;background:#e8f4ed;color:#174b30;font:15px system-ui">Edición de recuperación · revisión parcial al 21 de noviembre de 2026. Archivo histórico incompleto. Vigía APS es un recurso independiente; verifica las fuentes originales y protocolos vigentes.</div>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --paper: #EDEAE0;
+    --surface: #FBFAF6;
+    --surface-2: #F4F1E7;
+    --ink: #1B231F;
+    --ink-muted: #5B655E;
+    --ink-faint: #6C716A;
+    --line: #DAD5C5;
+    --line-strong: #C7C1AE;
+    --accent: #0B6B5C;
+    --accent-ink: #063D34;
+    --accent-soft: #DEEDE8;
+    --accent-soft-strong: #C7E3DB;
+
+    --sev-critico: #A93A2E;
+    --sev-critico-soft: #F5E1DC;
+    --sev-alerta: #885A0A;
+    --sev-alerta-soft: #F3E7CC;
+    --sev-atencion: #285A72;
+    --sev-atencion-soft: #DCE9EE;
+    --sev-rutina: #566153;
+    --sev-rutina-soft: #E5E9DF;
+
+    --shadow: 0 1px 2px rgba(27,35,31,0.06), 0 8px 24px -12px rgba(27,35,31,0.18);
+    --radius: 10px;
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper: #12160F;
+      --surface: #181D17;
+      --surface-2: #1F251C;
+      --ink: #E9E6D9;
+      --ink-muted: #A3AC9C;
+      --ink-faint: #8F9989;
+      --line: #2C3327;
+      --line-strong: #3B4433;
+      --accent: #3FB89E;
+      --accent-ink: #A6E8D5;
+      --accent-soft: #1B332C;
+      --accent-soft-strong: #234337;
+
+      --sev-critico: #E2806E;
+      --sev-critico-soft: #3A231D;
+      --sev-alerta: #DCAA57;
+      --sev-alerta-soft: #3A2E17;
+      --sev-atencion: #7FB2C9;
+      --sev-atencion-soft: #1E2C31;
+      --sev-rutina: #9DAE96;
+      --sev-rutina-soft: #262C21;
+
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 12px 28px -14px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #12160F;
+    --surface: #181D17;
+    --surface-2: #1F251C;
+    --ink: #E9E6D9;
+    --ink-muted: #A3AC9C;
+    --ink-faint: #8F9989;
+    --line: #2C3327;
+    --line-strong: #3B4433;
+    --accent: #3FB89E;
+    --accent-ink: #A6E8D5;
+    --accent-soft: #1B332C;
+    --accent-soft-strong: #234337;
+
+    --sev-critico: #E2806E;
+    --sev-critico-soft: #3A231D;
+    --sev-alerta: #DCAA57;
+    --sev-alerta-soft: #3A2E17;
+    --sev-atencion: #7FB2C9;
+    --sev-atencion-soft: #1E2C31;
+    --sev-rutina: #9DAE96;
+    --sev-rutina-soft: #262C21;
+
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 12px 28px -14px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:light dark;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-ink); text-decoration-color:var(--line-strong); text-underline-offset:2px;}
+  a:hover{text-decoration-color:currentColor;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+  button{font-family:inherit;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 20px;}
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    position:sticky; top:0; z-index:20;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .masthead-top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0 14px;
+    gap:16px;
+  }
+  .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+  .radar-mark{
+    position:relative;
+    width:34px; height:34px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, transparent 0 8px, var(--line) 8px 9px, transparent 9px 16px, var(--line) 16px 17px),
+      var(--surface-2);
+    border:1px solid var(--line-strong);
+    flex:none;
+    overflow:hidden;
+  }
+  .radar-mark::before{
+    content:"";
+    position:absolute; inset:0;
+    background:conic-gradient(from 0deg, var(--accent) 0deg, transparent 55deg, transparent 360deg);
+    opacity:0.75;
+    animation: sweep 4s linear infinite;
+    transform-origin:50% 50%;
+  }
+  .radar-mark::after{
+    content:"";
+    position:absolute; inset:0; margin:auto;
+    width:4px; height:4px; border-radius:50%;
+    background:var(--accent);
+  }
+  @keyframes sweep{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){
+    .radar-mark::before{ animation:none; }
+  }
+  .tab-hidden .radar-mark::before{ animation-play-state:paused; }
+  .brand-text{min-width:0;}
+  .brand-name{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.28rem;
+    letter-spacing:0.01em;
+    line-height:1;
+    margin:0;
+  }
+  .brand-tag{
+    font-size:0.72rem;
+    color:var(--ink-muted);
+    margin-top:3px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .theme-btn{
+    flex:none;
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    color:var(--ink);
+    border-radius:8px;
+    width:36px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    font-size:1rem;
+  }
+  .theme-btn:hover{border-color:var(--accent);}
+
+  .edition-bar{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; flex-wrap:wrap;
+    padding:10px 0 14px;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    color:var(--ink-muted);
+  }
+  .edition-bar strong{color:var(--ink); font-weight:600;}
+  .edition-status{
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
+
+  /* ---------- Filters ---------- */
+  .filters{
+    display:flex; gap:8px; flex-wrap:wrap;
+    padding-bottom:14px;
+  }
+  .chip{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:7px 12px;
+    border-radius:999px;
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    color:var(--ink-muted);
+    cursor:pointer;
+    line-height:1;
+  }
+  .chip[aria-pressed="true"]{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:var(--paper);
+  }
+  .chip:hover:not([aria-pressed="true"]){ border-color:var(--accent); color:var(--ink); }
+
+  .meeting-toggle{
+    margin-left:auto;
+    display:flex; align-items:center; gap:8px;
+    font-size:0.78rem;
+    color:var(--ink-muted);
+    font-family:var(--font-mono);
+  }
+  .switch{
+    position:relative; width:34px; height:19px; border-radius:999px;
+    background:var(--line-strong); border:none; cursor:pointer; flex:none;
+  }
+  .switch::after{
+    content:""; position:absolute; top:2px; left:2px; width:15px; height:15px;
+    border-radius:50%; background:var(--surface); transition:transform .15s ease;
+  }
+  .switch[aria-pressed="true"]{ background:var(--accent); }
+  .switch[aria-pressed="true"]::after{ transform:translateX(15px); background:#fff; }
+
+  /* ---------- Intro ---------- */
+  .intro{
+    padding:4px 0 22px;
+    max-width:62ch;
+  }
+  .intro p{
+    margin:0;
+    color:var(--ink-muted);
+    font-size:0.98rem;
+  }
+
+  /* ---------- Feed ---------- */
+  .feed{ display:flex; flex-direction:column; gap:14px; padding-bottom:28px; }
+  .empty-state{
+    padding:40px 20px; text-align:center; color:var(--ink-muted);
+    border:1px dashed var(--line-strong); border-radius:var(--radius);
+    font-size:0.9rem;
+  }
+
+  .card{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:18px 18px 16px 20px;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:var(--sev-color, var(--ink-faint));
+  }
+  .card-head{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+    margin-bottom:8px;
+  }
+  .card-eyebrow{
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .sev-pill{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:3px 8px; border-radius:999px;
+    background:var(--sev-soft, var(--surface-2));
+    color:var(--sev-color, var(--ink-muted));
+    font-weight:600;
+  }
+  .cat-label{ color:var(--ink-faint); }
+  .card-date{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    padding-top:2px;
+  }
+  .card h3{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.18rem;
+    line-height:1.28;
+    margin:2px 0 8px;
+    text-wrap:balance;
+  }
+  .card p.summary{
+    margin:0 0 12px;
+    color:var(--ink);
+    font-size:0.95rem;
+    line-height:1.55;
+  }
+  .meaning{
+    background:var(--sev-soft, var(--accent-soft));
+    border-radius:8px;
+    padding:11px 13px;
+    margin-bottom:12px;
+  }
+  .meaning-label{
+    font-family:var(--font-mono);
+    font-size:0.66rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--sev-color, var(--accent-ink));
+    display:block;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+  .meaning p{ margin:0; font-size:0.9rem; color:var(--ink); line-height:1.5; }
+
+  .card-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    flex-wrap:wrap;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  .card-tags{ display:flex; gap:6px; flex-wrap:wrap; }
+  .tag{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    color:var(--ink-muted);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:2px 6px;
+  }
+  .card-source{ font-size:0.82rem; color:var(--ink-muted); }
+  .card-source a{ font-weight:500; }
+
+  .mark-label{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:0.78rem; color:var(--ink-muted);
+    cursor:pointer; user-select:none;
+    white-space:nowrap;
+    padding:6px 4px;
+    margin:-6px -4px;
+  }
+  .mark-label input{
+    width:18px; height:18px; accent-color:var(--accent); cursor:pointer;
+  }
+
+  /* ---------- Meeting bar ---------- */
+  .meeting-bar{
+    position:sticky; bottom:14px;
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:12px;
+    padding:11px 14px;
+    box-shadow:0 10px 30px -8px rgba(0,0,0,0.4);
+    margin:6px 0 26px;
+    font-size:0.85rem;
+  }
+  .meeting-bar strong{ font-family:var(--font-mono); }
+  .meeting-bar .btns{ margin-left:auto; display:flex; gap:8px; }
+  .meeting-bar button{
+    border:1px solid rgba(255,255,255,0.25);
+    background:transparent;
+    color:var(--paper);
+    border-radius:7px;
+    padding:6px 11px;
+    font-size:0.8rem;
+    cursor:pointer;
+  }
+  .meeting-bar button:hover{ background:rgba(255,255,255,0.12); }
+  .meeting-bar button.primary{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#08211c;
+    font-weight:600;
+  }
+
+  /* ---------- Archive & footer ---------- */
+  .section-label{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--ink-faint);
+    display:flex; align-items:center; gap:10px;
+    margin:8px 0 14px;
+  }
+  .section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .archive-list{ list-style:none; margin:0 0 30px; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .archive-list li{
+    display:flex; justify-content:space-between; gap:10px;
+    padding:11px 14px; background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    font-size:0.86rem;
+  }
+  .archive-empty{
+    padding:16px; border:1px dashed var(--line-strong); border-radius:8px;
+    color:var(--ink-muted); font-size:0.86rem; margin-bottom:30px;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:22px 0 40px;
+    color:var(--ink-muted);
+    font-size:0.82rem;
+    line-height:1.6;
+  }
+  footer p{ max-width:62ch; margin:0 0 10px; }
+  .footer-meta{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--ink-faint);
+  }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  @media print{
+    .masthead, .filters .meeting-toggle, .theme-btn, .mark-label, .meeting-bar{ display:none !important; }
+    body{ background:#fff; color:#000; }
+    .card{ box-shadow:none; break-inside:avoid; }
+  }
+
+  @media (max-width:520px){
+    .brand-name{ font-size:1.12rem; }
+    .card{ padding:15px 14px 14px 17px; }
+  }
+</style>
+
+<div class="masthead">
+  <div class="wrap">
+    <div class="masthead-top">
+      <div class="brand">
+        <div class="radar-mark" aria-hidden="true"></div>
+        <div class="brand-text">
+          <p class="brand-name">Vigía APS</p>
+          <p class="brand-tag">Radar semanal para equipos de atención primaria en Chile</p>
+        </div>
+      </div>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar tema">◐</button>
+    </div>
+    <div class="edition-bar">
+      <span><strong id="editionLabel"></strong> · <span id="editionRange"></span></span>
+      <span class="edition-status"><span class="dot" aria-hidden="true"></span>Próxima edición: <span id="nextUpdate"></span></span>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar por severidad"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="intro">
+    <p id="introText"></p>
+  </div>
+
+  <div class="feed" id="feed"></div>
+
+  <div id="meetingBar"></div>
+
+  <div class="section-label">Archivo de ediciones</div>
+  <div id="archiveWrap"></div>
+
+  <footer>
+    <p><strong style="color:var(--ink)">Cómo funciona:</strong> cada hallazgo cruza una fuente oficial o de prensa verificada con una lectura de "qué cambia para tu CESFAM". La prioridad se ordena por severidad clínica u operativa, no por fecha de publicación. Los hallazgos no reemplazan las orientaciones técnicas oficiales del Minsal — siempre revisa la fuente citada antes de actuar.</p>
+    <p class="footer-meta" id="footerMeta"></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============================================================
+  // DATA — esta es la única sección que se edita en cada
+  // actualización semanal. EDITION describe la edición vigente;
+  // ITEMS son los hallazgos de esta semana; ARCHIVE guarda un
+  // resumen de las ediciones anteriores (se agrega una fila nueva
+  // cada vez que se publica una edición y sus ITEMS pasan a formar
+  // parte del historial).
+  // ============================================================
+  var EDITION = {
+  "number": 1,
+  "rangeLabel": "Actualización de recuperación · 10–21 de noviembre de 2026",
+  "publishedISO": "2026-11-21",
+  "nextUpdateLabel": "Revisión diaria programada",
+  "intro": "Nueva edición de recuperación, con revisión parcial de fuentes al 21 de noviembre. Cuatro señales recientes de farmacovigilancia, un antecedente epidemiológico y un estudio de diseño sin resultados de eficacia. No se completó una búsqueda clínica exhaustiva ni se verificaron todas las fuentes MAIS, ECICEP o SSMN. No se identificó en esta búsqueda limitada evidencia suficiente para cambiar la práctica. La numeración histórica de septiembre a noviembre aún está por recuperar."
+};
+  var ITEMS = [
+  {
+    "id": "isp-glp1-naion-2026-11",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Agonistas GLP-1: nueva advertencia de seguridad ocular",
+    "date": "2026-11-17",
+    "region": "Chile",
+    "summary": "El ISP registró una nota de farmacovigilancia el 17 de noviembre y anunció el 18 de noviembre la actualización de información de seguridad por una posible neuropatía óptica isquémica anterior no arterítica. La frecuencia se considera muy baja; la pérdida visual súbita puede ser permanente.",
+    "meaning": "Revisar la consejería en personas que reciben estos fármacos. Ante pérdida visual súbita, procurar evaluación urgente y notificar sospechas de reacción adversa. La alerta no equivale a una indicación de suspender indiscriminadamente todos los tratamientos; comprobar la ficha de cada producto y evaluar individualmente.",
+    "tags": [
+      "Diabetes",
+      "Obesidad",
+      "Seguridad"
+    ],
+    "source": {
+      "name": "ISP · comunicado oficial",
+      "url": "https://ispch.cl/noticia/isp-publica-nota-de-farmacovigilancia-sobre-agonistas-del-receptor-de-glp-1-por-riesgo-de-neuropatia-optica-isquemica-anterior-no-arteritica/"
+    }
+  },
+  {
+    "id": "isp-36-26",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Retiro de mercado 36/26: ondansetrón inyectable",
+    "date": "2026-11-13",
+    "region": "Chile",
+    "summary": "El registro oficial identifica una alerta de retiro para ondansetrón 8 mg/4 mL de Vitafarma S.A. No se verificaron en esta revisión los lotes ni la causa del retiro.",
+    "meaning": "Solicitar a farmacia revisar la alerta completa y contrastar fabricante, presentación y lotes en bodega y carros de urgencia. No extender el retiro a otras presentaciones sin confirmación.",
+    "tags": [
+      "Farmacia",
+      "SAPU",
+      "Urgencia"
+    ],
+    "source": {
+      "name": "ISP · registro de alertas 36/26",
+      "url": "https://www.ispch.gob.cl/categorias-alertas/anamed/?buscar=&tipo_alerta=&tipo_producto=farmaceutico"
+    }
+  },
+  {
+    "id": "isp-35-26",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Retiro de mercado 35/26: lorazepam inyectable",
+    "date": "2026-11-13",
+    "region": "Chile",
+    "summary": "El ISP incluye una alerta para lorazepam solución inyectable 4 mg/2 mL de Laboratorio Sanderson SpA. No se verificaron los lotes ni la causa.",
+    "meaning": "Confirmar alcance con farmacia, asegurar trazabilidad de existencias y continuidad de las alternativas autorizadas en caso de afectación del stock.",
+    "tags": [
+      "Farmacia",
+      "Urgencia"
+    ],
+    "source": {
+      "name": "ISP · registro de alertas 35/26",
+      "url": "https://www.ispch.gob.cl/categorias-alertas/anamed/?buscar=&tipo_alerta=&tipo_producto=farmaceutico"
+    }
+  },
+  {
+    "id": "isp-34-26",
+    "severity": "alerta",
+    "category": "farmacovigilancia",
+    "title": "Retiro de mercado 34/26: cefazolina inyectable",
+    "date": "2026-11-10",
+    "region": "Chile",
+    "summary": "El listado del ISP registra un retiro de cefazolina 1 g polvo para solución inyectable de Difem Laboratorios S.A. Los lotes y el motivo no fueron comprobados en esta revisión.",
+    "meaning": "Consultar la alerta original antes de decidir inmovilización de lotes y coordinar con farmacia y referentes de antimicrobianos según disponibilidad local.",
+    "tags": [
+      "Antibióticos",
+      "Farmacia"
+    ],
+    "source": {
+      "name": "ISP · registro de alertas 34/26",
+      "url": "https://www.ispch.gob.cl/categorias-alertas/anamed/?buscar=&tipo_alerta=&tipo_producto=farmaceutico"
+    }
+  },
+  {
+    "id": "mpox-2026-10-15",
+    "severity": "atencion",
+    "category": "vigilancia",
+    "title": "Mpox clado Ib: antecedente de transmisión local en Chile",
+    "date": "2026-10-15",
+    "region": "Chile",
+    "summary": "Salud Responde conserva en su listado oficial el oficio CP 25043/2026 sobre confirmación de casos con transmisión local. Es un antecedente de octubre incorporado a esta revisión, no una nueva alerta de noviembre.",
+    "meaning": "Revisar con epidemiología local el protocolo actualizado de sospecha, notificación y derivación. Esta revisión no confirma cifras actuales de casos ni reemplaza las instrucciones del oficio.",
+    "tags": [
+      "Mpox",
+      "Vigilancia"
+    ],
+    "source": {
+      "name": "MINSAL · Salud Responde",
+      "url": "https://saludresponde.minsal.cl/alertas-de-salud/"
+    }
+  },
+  {
+    "id": "heart2heart-2026-11",
+    "severity": "rutina",
+    "category": "normativa-evidencia",
+    "title": "Observar: atención en equipo y monitorización domiciliaria de presión arterial",
+    "date": "2026-11-01",
+    "region": "Internacional · Estados Unidos",
+    "summary": "La edición de noviembre de Contemporary Clinical Trials describe el diseño y datos basales del ensayo Heart-2-Heart BP Control Partners, desarrollado en 19 centros de atención primaria de Carolina del Norte. Compara monitorización domiciliaria conectada y atención farmacéutica en equipo con atención habitual reforzada. La fecha exacta del día no se verificó; se usa el primer día del mes para ordenar la ficha.",
+    "meaning": "Veredicto: vigilar, no cambiar. El diseño puede inspirar evaluaciones ECICEP de seguimiento y coordinación, pero no demuestra beneficio clínico ni transferibilidad al CESFAM. No hay resultados de eficacia, NNT ni estimación de daños evaluados en esta revisión.",
+    "tags": [
+      "HTA",
+      "ECICEP",
+      "Internacional",
+      "Diseño de ensayo"
+    ],
+    "source": {
+      "name": "Contemporary Clinical Trials · artículo original",
+      "url": "https://doi.org/10.1016/j.cct.2026.108469"
+    }
+  }
+];
+  var ARCHIVE = [
+  {
+    "number": 1,
+    "rangeLabel": "24–30 de agosto de 2026",
+    "count": 7
+  }
+];
+
+  // ============================================================
+  // Config estática (no cambia semana a semana)
+  // ============================================================
+  var SEVERITY = {
+    critico:  { label: "Crítico",  order: 0 },
+    alerta:   { label: "Alerta",   order: 1 },
+    atencion: { label: "Atención", order: 2 },
+    rutina:   { label: "Rutina",   order: 3 }
+  };
+  var CATEGORY_LABEL = {
+    "vigilancia": "Vigilancia epidemiológica",
+    "alerta-sanitaria": "Alerta sanitaria",
+    "farmacovigilancia": "Farmacovigilancia",
+    "normativa-evidencia": "Normativa y evidencia",
+    "recordatorio": "Recordatorio operativo"
+  };
+  var MONTHS = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+
+  function fmtDate(iso){
+    var p = iso.split("-");
+    return p[2] + " " + MONTHS[parseInt(p[1],10)-1] + " " + p[0];
+  }
+
+  // ---------- state ----------
+  var STORAGE_KEY = "vigia-aps-marks-v1";
+  var THEME_KEY = "vigia-aps-theme";
+  var marks = {};
+  try{
+    marks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  }catch(e){ marks = {}; }
+
+  var activeSeverity = "todos";
+
+  function saveMarks(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(marks)); }catch(e){}
+  }
+
+  // ---------- render: header ----------
+  document.getElementById("editionLabel").textContent = "Edición de recuperación";
+  document.getElementById("editionRange").textContent = EDITION.rangeLabel;
+  document.getElementById("nextUpdate").textContent = EDITION.nextUpdateLabel;
+  document.getElementById("introText").textContent = EDITION.intro;
+  document.getElementById("footerMeta").textContent =
+    "Última actualización: " + fmtDate(EDITION.publishedISO) + " · " + ITEMS.length + " fuentes citadas en esta edición.";
+
+  // ---------- filters ----------
+  var filtersEl = document.getElementById("filters");
+  var filterDefs = [["todos","Todo"],["critico","Crítico"],["alerta","Alerta"],["atencion","Atención"],["rutina","Rutina"]];
+  filterDefs.forEach(function(def){
+    var btn = document.createElement("button");
+    btn.className = "chip";
+    btn.type = "button";
+    btn.textContent = def[1];
+    btn.setAttribute("aria-pressed", def[0] === activeSeverity ? "true" : "false");
+    btn.addEventListener("click", function(){
+      activeSeverity = def[0];
+      Array.prototype.forEach.call(filtersEl.querySelectorAll(".chip"), function(c){
+        c.setAttribute("aria-pressed", c === btn ? "true" : "false");
+      });
+      render();
+    });
+    filtersEl.appendChild(btn);
+  });
+  var meetingToggleWrap = document.createElement("div");
+  meetingToggleWrap.className = "meeting-toggle";
+  meetingToggleWrap.innerHTML = 'Solo para reunión <button class="switch" id="meetingSwitch" type="button" aria-pressed="false" aria-label="Mostrar solo marcados para reunión"></button>';
+  filtersEl.appendChild(meetingToggleWrap);
+  var onlyMeeting = false;
+  document.getElementById("meetingSwitch").addEventListener("click", function(){
+    onlyMeeting = !onlyMeeting;
+    this.setAttribute("aria-pressed", onlyMeeting ? "true" : "false");
+    render();
+  });
+
+  // ---------- feed ----------
+  var feedEl = document.getElementById("feed");
+  var meetingBarEl = document.getElementById("meetingBar");
+
+  function cardHTML(item){
+    var sev = SEVERITY[item.severity];
+    var checked = !!marks[item.id];
+    return (
+      '<article class="card" style="--sev-color:var(--sev-' + item.severity + ');--sev-soft:var(--sev-' + item.severity + '-soft)">' +
+        '<div class="card-head">' +
+          '<div class="card-eyebrow">' +
+            '<span class="sev-pill">' + sev.label + '</span>' +
+            '<span class="cat-label">' + CATEGORY_LABEL[item.category] + '</span>' +
+          '</div>' +
+          '<span class="card-date">' + fmtDate(item.date) + '</span>' +
+        '</div>' +
+        '<h3>' + item.title + '</h3>' +
+        '<p class="summary">' + item.summary + '</p>' +
+        '<div class="meaning">' +
+          '<span class="meaning-label">Por qué importa para tu CESFAM</span>' +
+          '<p>' + item.meaning + '</p>' +
+        '</div>' +
+        '<div class="card-foot">' +
+          '<div class="card-tags">' +
+            (item.region ? '<span class="tag">' + item.region + '</span>' : '') +
+            item.tags.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') +
+          '</div>' +
+          '<label class="mark-label"><input type="checkbox" data-id="' + item.id + '" ' + (checked ? "checked" : "") + '/> Reunión</label>' +
+        '</div>' +
+        '<div class="card-foot" style="border-top:none;padding-top:0;">' +
+          '<span class="card-source">Fuente: <a href="' + item.source.url + '" target="_blank" rel="noopener">' + item.source.name + '</a></span>' +
+        '</div>' +
+      '</article>'
+    );
+  }
+
+  function render(){
+    var list = ITEMS.slice().sort(function(a,b){ return SEVERITY[a.severity].order - SEVERITY[b.severity].order; });
+    if(activeSeverity !== "todos"){
+      list = list.filter(function(it){ return it.severity === activeSeverity; });
+    }
+    if(onlyMeeting){
+      list = list.filter(function(it){ return !!marks[it.id]; });
+    }
+
+    if(list.length === 0){
+      feedEl.innerHTML = '<div class="empty-state">No hay hallazgos que calcen con este filtro.</div>';
+    } else {
+      feedEl.innerHTML = list.map(cardHTML).join("");
+    }
+
+    Array.prototype.forEach.call(feedEl.querySelectorAll('input[type="checkbox"]'), function(cb){
+      cb.addEventListener("change", function(){
+        var id = this.getAttribute("data-id");
+        if(this.checked){ marks[id] = true; } else { delete marks[id]; }
+        saveMarks();
+        renderMeetingBar();
+        if(onlyMeeting) render();
+      });
+    });
+
+    renderMeetingBar();
+  }
+
+  function selectedItems(){
+    return ITEMS.filter(function(it){ return !!marks[it.id]; });
+  }
+
+  function renderMeetingBar(){
+    var sel = selectedItems();
+    if(sel.length === 0){ meetingBarEl.innerHTML = ""; return; }
+    meetingBarEl.innerHTML =
+      '<div class="meeting-bar">' +
+        '<span><strong>' + sel.length + '</strong> marcado' + (sel.length === 1 ? "" : "s") + ' para reunión</span>' +
+        '<div class="btns">' +
+          '<button type="button" id="btnCopy">Copiar resumen</button>' +
+          '<button type="button" id="btnPrint" class="primary">Exportar / imprimir</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById("btnCopy").addEventListener("click", copySummary);
+    document.getElementById("btnPrint").addEventListener("click", function(){ window.print(); });
+  }
+
+  function copySummary(){
+    var sel = selectedItems();
+    var lines = ["Vigía APS — " + "Edición de recuperación" + " (" + EDITION.rangeLabel + ")", ""];
+    sel.forEach(function(it){
+      lines.push("• [" + SEVERITY[it.severity].label.toUpperCase() + "] " + it.title);
+      lines.push("  " + it.meaning);
+      lines.push("  Fuente: " + it.source.name + " — " + it.source.url);
+      lines.push("");
+    });
+    var text = lines.join("\n");
+    var btn = document.getElementById("btnCopy");
+    function flash(msg){
+      if(!btn) return;
+      var original = "Copiar resumen";
+      btn.textContent = msg;
+      setTimeout(function(){ if(btn) btn.textContent = original; }, 1800);
+    }
+    function legacyCopy(){
+      // navigator.clipboard puede fallar dentro de un iframe/sandbox sin permiso
+      // de portapapeles; se intenta el método clásico antes de rendirse.
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "-1000px";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try{ ok = document.execCommand("copy"); }catch(e){ ok = false; }
+      document.body.removeChild(ta);
+      if(ok){
+        flash("Copiado ✓");
+      } else {
+        // Último recurso: mostrar el texto seleccionable para copiar a mano.
+        window.prompt("No se pudo copiar automáticamente. Copia el texto manualmente (Ctrl/Cmd+C):", text);
+        flash("Copiar resumen");
+      }
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ flash("Copiado ✓"); }, legacyCopy);
+    } else {
+      legacyCopy();
+    }
+  }
+
+  // ---------- archive ----------
+  var archiveWrap = document.getElementById("archiveWrap");
+  if(ARCHIVE.length === 0){
+    archiveWrap.innerHTML = '<div class="archive-empty">Esta es la primera edición de Vigía APS. El archivo se irá construyendo automáticamente cada semana.</div>';
+  } else {
+    archiveWrap.innerHTML = '<ul class="archive-list">' + ARCHIVE.map(function(ed){
+      return '<li><span><a href="2026-08-30.html">Archivo histórico · ' + ed.rangeLabel + '</a></span><span class="footer-meta">' + ed.count + ' hallazgos</span></li>';
+    }).join("") + '</ul>';
+  }
+
+  // ---------- theme ----------
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("themeBtn");
+  function applyTheme(t){
+    if(t === "light" || t === "dark"){ root.setAttribute("data-theme", t); }
+    else { root.removeAttribute("data-theme"); }
+  }
+  var savedTheme = null;
+  try{ savedTheme = localStorage.getItem(THEME_KEY); }catch(e){}
+  applyTheme(savedTheme);
+  themeBtn.addEventListener("click", function(){
+    var current = root.getAttribute("data-theme");
+    var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next;
+    if(!current){ next = prefersDark ? "light" : "dark"; }
+    else if(current === "dark"){ next = "light"; }
+    else { next = null; }
+    applyTheme(next);
+    try{
+      if(next){ localStorage.setItem(THEME_KEY, next); } else { localStorage.removeItem(THEME_KEY); }
+    }catch(e){}
+  });
+
+  document.addEventListener("visibilitychange", function(){
+    document.documentElement.classList.toggle("tab-hidden", document.hidden);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
